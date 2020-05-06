@@ -21,8 +21,13 @@ def linear_data_example():
 def generate_data_cluster(num_points=100, sample_balance=10, k=2, dims=3, random_factor=10):
     # generate n-D data clusters
     sample_prob = np.random.dirichlet(np.ones(k)*sample_balance, size=1)[0]
-    means = np.multiply(np.random.rand(k, dims), np.random.randint(1, random_factor, dims))
+    means = np.multiply(np.random.rand(k, dims), np.random.randint(1, random_factor, [k, dims]))
     covariances = np.random.rand(k, dims, dims)
+
+    # make covariance matrix positive semidefinite
+    for mat_ind in range(len(covariances)):
+        covariances[mat_ind] = np.dot(covariances[mat_ind], covariances[mat_ind].T)
+
     x_data = []
     y_data = []
     for n in range(num_points):
@@ -35,7 +40,7 @@ def generate_data_cluster(num_points=100, sample_balance=10, k=2, dims=3, random
 
 def cluster_data_example():
     # visualize 2D data clusters
-    data = generate_data_cluster(num_points=500, sample_balance=10, k=5, random_factor=10)
+    data = generate_data_cluster(num_points=500, sample_balance=100, k=5, random_factor=5)
     x_data = data[0].T
     plt.scatter(x_data[0], x_data[1], c=data[1], alpha=0.8, edgecolors='none', cmap='Spectral')
     plt.show()
