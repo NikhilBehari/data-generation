@@ -5,10 +5,10 @@ This repo contains methods for generating continuous and categorical data.
 Produces data with a linear relationship 
 
 ![Linear Data Example]
-(linear_example.png)
+(linear_example.png?raw=true)
 
 ### Categorical cluster data
 Produces k random clusters with Multinomial distribution
 
 ![Cluster Data Example]
-(cluster_example.png)
+(cluster_example.png?raw=true)
